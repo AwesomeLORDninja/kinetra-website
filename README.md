@@ -1,6 +1,6 @@
-# Kinetra Engineering Consultants
+# Kinetra Global Consultants
 
-Website for Kinetra Engineering Consultants, led by C.K. (Chollangi Kesavachandra).
+Website for Kinetra Global Consultants, led by C.K. (Chollangi Kesavachandra).
 
 A single static page (`index.html`) with hash-based pages: Home, Disciplines, About, Capabilities, International, Process and Contact. Hero videos live in `media/`.
 
