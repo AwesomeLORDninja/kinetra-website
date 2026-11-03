@@ -60,6 +60,12 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; }
+body { min-height: 100vh; display: flex; flex-direction: column; }
+body > main { flex: 1 0 auto; }
+body > header, body > footer { flex: none; }
+[hidden] { display: none !important; }
+img, video { max-width: 100%; }
 body { background: var(--page); color: var(--text); font: 400 16px/26px var(--f-sans); -webkit-font-smoothing: antialiased; transition: background-color .3s var(--ease), color .3s var(--ease); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--navy); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
