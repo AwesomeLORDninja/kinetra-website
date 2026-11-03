@@ -47,18 +47,6 @@
   --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --ease: cubic-bezier(.22, 1, .36, 1);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --page: #0B0F17; --soft: #0F1520; --card: #131A26; --raised: #1B2433;
-    --text: #F1F5F9; --text-2: #A3AEBF; --text-3: #7C879A;
-    --hair: rgba(241, 245, 249, .10); --hair-strong: rgba(241, 245, 249, .18);
-    --accent: #5B8CFF; --accent-2: #84A9FF; --on-accent: #0B0F17;
-    --orange: #34D399; --on-green: #0B0F17; --green-hover: #6EE7B7; --yellow: #BEF264;
-    --navy: #070A10; --band: #1B2433; --band-tail: #121A26; --band-fold: #03050A;
-    --shadow-sm: none; --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, .55);
-    color-scheme: dark;
-  }
-}
 :root[data-theme="dark"] {
   --page: #0B0F17; --soft: #0F1520; --card: #131A26; --raised: #1B2433;
   --text: #F1F5F9; --text-2: #A3AEBF; --text-3: #7C879A;
@@ -522,11 +510,10 @@ ul.ticks li::before { content: ""; position: absolute; left: 0; top: 11px; width
       <a href="#contact">Contact</a>
     </nav>
     <div class="head-right">
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Theme: Auto. Switch to light">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Theme: Light. Switch to dark mode">
         <svg class="ic-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="ic-dark" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
-        <svg class="ic-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor" stroke="none"/></svg>
-        <span id="themeLabel">Auto</span>
+        <span id="themeLabel">Light</span>
       </button>
       <a class="btn primary small" href="#contact">Connect</a>
     </div>
@@ -935,28 +922,25 @@ ul.ticks li::before { content: ""; position: absolute; left: 0; top: 11px; width
   window.addEventListener('load', toTop);
   window.addEventListener('pageshow', toTop);
   /* Theme toggle */
-  // Three modes: Auto (follows the system, or the viewer's own theme setting), Light, Dark
+  // Light by default; dark only when the visitor picks it (remembered in their browser)
   const tb = document.getElementById('themeBtn'), tl = document.getElementById('themeLabel');
-  const hostTheme = root.getAttribute('data-theme');
-  const NAMES = { auto: 'Auto', light: 'Light', dark: 'Dark' }, NEXT = { auto: 'light', light: 'dark', dark: 'auto' };
-  let mode = 'auto';
-  try { const saved = localStorage.getItem('ck-theme'); if (saved === 'dark' || saved === 'light') mode = saved; } catch (e) {}
-  const isDark = () => root.getAttribute('data-theme') ? root.getAttribute('data-theme') === 'dark' : mq.matches;
+  const NAMES = { light: 'Light', dark: 'Dark' }, NEXT = { light: 'dark', dark: 'light' };
+  let mode = 'light';
+  try { if (localStorage.getItem('ck-theme') === 'dark') mode = 'dark'; } catch (e) {}
+  const isDark = () => mode === 'dark';
   function applyMode() {
-    if (mode === 'auto') { if (hostTheme) root.setAttribute('data-theme', hostTheme); else root.removeAttribute('data-theme'); }
-    else root.setAttribute('data-theme', mode);
+    root.setAttribute('data-theme', mode);
     tb.dataset.mode = mode; tl.textContent = NAMES[mode];
-    tb.setAttribute('aria-label', 'Theme: ' + NAMES[mode] + '. Switch to ' + NAMES[NEXT[mode]].toLowerCase());
+    tb.setAttribute('aria-label', 'Theme: ' + NAMES[mode] + '. Switch to ' + NAMES[NEXT[mode]].toLowerCase() + ' mode');
   }
   applyMode();
   const syncDark = () => root.classList.toggle('is-dark', isDark());
   onTheme(syncDark); syncDark();
-  mq.addEventListener?.('change', fireTheme);
-  new MutationObserver(fireTheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  new MutationObserver(() => { if (root.getAttribute('data-theme') !== mode) applyMode(); fireTheme(); }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   tb.addEventListener('click', () => {
     mode = NEXT[mode];
     applyMode(); fireTheme();
-    try { if (mode === 'auto') localStorage.removeItem('ck-theme'); else localStorage.setItem('ck-theme', mode); } catch (e) {}
+    try { if (mode === 'dark') localStorage.setItem('ck-theme', 'dark'); else localStorage.removeItem('ck-theme'); } catch (e) {}
   });
 
   /* Span diagram: one tick per year */
