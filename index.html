@@ -389,6 +389,16 @@ h2 { margin: 0; font: 500 40px/1.12 var(--f-sans); letter-spacing: -.02em; text-
 .contact-card:hover { border-color: var(--hair-strong); }
 .contact-card .k { display: block; margin-bottom: 8px; font: 500 14px/20px var(--f-sans); color: var(--text-3); }
 .contact-card .v { font: 600 18px/26px var(--f-sans); overflow-wrap: anywhere; }
+.contact-cards.single { grid-template-columns: 1fr; max-width: 480px; }
+.email-card { text-align: center; display: grid; justify-items: center; gap: 4px; padding: 32px 24px; }
+.email-card .k { margin-bottom: 0; }
+.email-note { margin: 0 0 20px; font-size: 15px; line-height: 23px; color: var(--text-2); }
+.copy-email.copied { background: var(--accent-2); }
+.email-fallback { display: block; margin-top: 16px; font: 500 16px/24px var(--f-sans); color: var(--text); user-select: all; -webkit-user-select: all; overflow-wrap: anywhere; }
+.email-fallback[hidden] { display: none; }
+.foot-copy { padding: 0; border: 0; background: none; cursor: pointer; font: 400 14px/20px var(--f-sans); color: var(--navy-text); text-align: left; transition: color .16s var(--ease); }
+.foot-copy:hover { color: #fff; }
+.foot-grid .email-fallback { margin-top: 4px; font-size: 14px; color: var(--navy-text); }
 .email-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .email-row .v { user-select: all; -webkit-user-select: all; }
 .copy-btn { height: 32px; padding: 0 12px; border-radius: 8px; cursor: pointer; font: 500 13px/1 var(--f-sans); color: var(--text); background: var(--raised); border: 1px solid var(--hair); transition: background-color .16s var(--ease), transform .12s var(--ease); }
@@ -563,7 +573,7 @@ ul.ticks li::before { content: ""; position: absolute; left: 0; top: 11px; width
   <section class="sec">
     <div class="wrap">
       <div class="sec-head"><p class="eyebrow">Explore</p><h2>Everything about Kinetra</h2><p class="sec-intro">Each part of the practice has its own page with the full detail</p></div>
-      <div class="tiles"><a class="tile" href="#disciplines"><h3>Disciplines <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Civil, structural, electrical and mechanical engineering, coordinated as one team</p></a><a class="tile" href="#about"><h3>About <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>The principal engineer, qualifications and the way we work</p></a><a class="tile" href="#capabilities"><h3>Capabilities <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Services and deliverables, from first scheme to construction support</p></a><a class="tile" href="#international"><h3>International <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Six countries and the design environments behind them</p></a><a class="tile" href="#process"><h3>Process <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Six stages that take a project from concept to handover</p></a><a class="tile" href="#contact"><h3>Contact <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Email, LinkedIn and what to send for a quick response</p></a></div>
+      <div class="tiles"><a class="tile" href="#disciplines"><h3>Disciplines <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Civil, structural, electrical and mechanical engineering, coordinated as one team</p></a><a class="tile" href="#about"><h3>About <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>The principal engineer, qualifications and the way we work</p></a><a class="tile" href="#capabilities"><h3>Capabilities <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Services and deliverables, from first scheme to construction support</p></a><a class="tile" href="#international"><h3>International <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Six countries and the design environments behind them</p></a><a class="tile" href="#process"><h3>Process <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>Six stages that take a project from concept to handover</p></a><a class="tile" href="#contact"><h3>Contact <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></h3><p>How to reach us and what to send for a quick response</p></a></div>
     </div>
   </section>
   <section class="cta-band">
@@ -873,9 +883,8 @@ ul.ticks li::before { content: ""; position: absolute; left: 0; top: 11px; width
   </section>
   <section class="sec contact">
     <div class="wrap">
-      <div class="contact-cards">
-        <div class="contact-card"><span class="k">Email</span><div class="email-row"><span class="v" id="emailText">chandrachk@gmail.com</span><button class="copy-btn" id="copyEmail" type="button">Copy</button></div></div>
-        <div class="contact-card"><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/chandrachollangi/" target="_blank" rel="noopener">chandrachollangi <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+      <div class="contact-cards single">
+        <div class="contact-card email-card"><span class="k">Email</span><p class="email-note">Copy our address, then paste it into your email app</p><button class="btn primary copy-email" type="button" data-copy="chandrachk@gmail.com"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span>Copy email address</span></button><span class="email-fallback" hidden>chandrachk@gmail.com</span></div>
       </div>
     </div>
   </section>
@@ -901,7 +910,7 @@ ul.ticks li::before { content: ""; position: absolute; left: 0; top: 11px; width
       <div><span class="lockup"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path class="m-stem" d="M3 3h7.5v26H3z"/><path class="m-up" d="M12.6 14.6L22 3h7.6L17.4 18.2z"/><path class="m-low" d="M16.2 20.2l4.6-4.6L29.6 29h-7.8z"/></svg><span class="lk-text"><span class="lk-name">KINETRA</span><span class="lk-sub">Global Consultants</span></span></span><p>Civil, structural, electrical and mechanical engineering for power and infrastructure.</p></div>
       <div><h4>Explore</h4><ul><li><a href="#home">Home</a></li><li><a href="#disciplines">Disciplines</a></li><li><a href="#capabilities">Capabilities</a></li><li><a href="#process">Process</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#international">International</a></li><li><a href="#contact">Contact</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li><a href="#contact">chandrachk@gmail.com</a></li><li><a href="https://www.linkedin.com/in/chandrachollangi/" target="_blank" rel="noopener">LinkedIn</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><button class="foot-copy" type="button" data-copy="chandrachk@gmail.com"><span>Copy email address</span></button><span class="email-fallback" hidden>chandrachk@gmail.com</span></li><li><a href="#contact">Contact page</a></li></ul></div>
     </div>
     <div class="foot-bottom"><span>© 2026 Kinetra Global Consultants</span><span>Map data: Natural Earth · Videos: Pexels</span></div>
   </div>
@@ -966,13 +975,21 @@ ul.ticks li::before { content: ""; position: absolute; left: 0; top: 11px; width
   const syncDimBg = () => { const card = document.querySelector('.span-card'); if (card) dimBg.setAttribute('fill', getComputedStyle(card).backgroundColor); };
   onTheme(() => setTimeout(syncDimBg, 350)); syncDimBg();
 
-  /* Copy email */
-  const cb = document.getElementById('copyEmail');
-  cb.addEventListener('click', () => {
-    const t = document.getElementById('emailText');
-    const flash = msg => { cb.textContent = msg; setTimeout(() => { cb.textContent = 'Copy'; }, 1600); };
-    const select = () => { const r = document.createRange(); r.selectNodeContents(t); const s = getSelection(); s.removeAllRanges(); s.addRange(r); flash('Selected'); };
-    try { navigator.clipboard.writeText(t.textContent).then(() => flash('Copied'), select); } catch (e) { select(); }
+  /* Copy email: the address is copied, not shown. If copying is refused, the address is revealed to select by hand */
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    const label = btn.querySelector('span'), original = label.textContent;
+    const fallback = btn.parentElement.querySelector('.email-fallback');
+    btn.addEventListener('click', () => {
+      const done = () => { label.textContent = 'Email copied'; btn.classList.add('copied'); setTimeout(() => { label.textContent = original; btn.classList.remove('copied'); }, 1800); };
+      const reveal = () => {
+        if (!fallback) return;
+        fallback.hidden = false;
+        const r = document.createRange(); r.selectNodeContents(fallback); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        label.textContent = 'Copy it from below';
+        setTimeout(() => { label.textContent = original; }, 2400);
+      };
+      try { navigator.clipboard.writeText(btn.dataset.copy).then(done, reveal); } catch (e) { reveal(); }
+    });
   });
 
   /* Scroll reveal, run for whichever page is showing */
